@@ -1,105 +1,65 @@
 # CraftTrail Sri Lanka
 
-A small picture-book iOS app about Sri Lankan crafts. Screens use flat vector drawings (SwiftUI shapes), not photographs. Ivory paper, forest green, terracotta, and thick dark outlines make the sticker look.
+CraftTrail is my SE4041 iOS app. It is a small guide to Sri Lankan crafts for someone who wants to see what the crafts are and which towns they come from.
 
-This project was prepared on Windows. It has not been compiled here. A Mac with Xcode is required to build and run it.
+The crafts in the app are Ambalangoda masks, coastal batik, Kandyan laksha, brass oil lamps, Dumbara weaving, beeralu lace, and the perahera sesath.
 
-## What the app does
+I did the pictures as cartoons instead of using photos. They are SwiftUI shapes with a dark outline, on cream cards, with green and terracotta as the main colours. I wanted it to feel like a sticker sheet, not a normal list app.
 
-- Home: brand, search, category chips, craft cards, and craft towns
-- Explore: a MapKit map of Sri Lanka with sample stops, plus a list
-- Craft page: cartoon, short story, region, and a heart button
-- Town page: the sample stop, a small map, and a link back to the craft
-- Favourites: hearts saved on the phone with SwiftData
-- Profile: guest name, light / dark / system appearance
+I built this on Windows, so I have not run it in the simulator myself. It needs a Mac with Xcode.
 
-Drag a craft drawing to tilt it. Swipe a favourite left to remove it. Search and filters work offline.
+## Screens
 
-Workshop names are made up for the demo. The towns and craft traditions are real. The app says this on the town and craft pages.
+- Home has search, craft categories, the craft cards, and the towns.
+- Explore has a map of Sri Lanka and the same towns in a list.
+- A craft page shows the drawing, a short description, the region, and a heart button.
+- A town page shows the sample stop and links back to the craft.
+- Favourites keeps whatever you heart. It is still there after you close the app.
+- Profile is just a guest name, plus light, dark, or system appearance.
 
-## Technology
+You can drag a craft drawing and it tilts a bit. On Favourites, swipe left to remove one.
 
-- Swift and SwiftUI
-- iOS 17 or newer (SwiftData needs iOS 17)
-- NavigationStack and a tab bar
-- SwiftData for favourites only
-- MapKit for the craft map
-- No third-party packages
+The towns are real. The workshop names are made up for this demo, and the app says that on the page.
 
-## What your friend needs
+## How to run
 
-- A Mac
-- Xcode 16 or newer
-- An iPhone simulator running iOS 17 or newer
-- A free Apple ID if they run it on a real iPhone. The simulator does not need a paid developer account.
-
-## Open and run
-
-1. Copy this `CraftTrail` folder to the Mac, or clone it from GitHub.
+1. Clone this repo.
 2. Open `CraftTrail.xcodeproj`.
-3. At the top of Xcode, choose the **CraftTrail** scheme and an iPhone simulator.
+3. Choose the CraftTrail scheme and an iPhone simulator on iOS 17 or later.
 4. Press Run.
-5. If signing fails, open the CraftTrail target, go to **Signing & Capabilities**, and choose their Apple ID as the Team.
 
-Map pictures load when the Mac or phone is online. The craft list still works offline.
+If Xcode asks for a Team, use your Apple ID. A simulator does not need a paid developer account.
+
+The map picture needs internet. Search and the lists work without it.
+
+iOS 17 is the lowest version because favourites are saved with SwiftData.
+
+## What I used
+
+Swift, SwiftUI, NavigationStack, a tab bar, SwiftData, and MapKit. I did not add any third-party libraries.
 
 ## Tests
 
-In Xcode choose **Product > Test**, or press Command-U.
+In Xcode, Product > Test.
 
-- `CatalogTests` checks search, filters, demo labels, and that pins sit in Sri Lanka
-- `FavouriteStoreTests` saves a heart in memory and removes it
-- `CraftTrailUITests` opens the mask card, taps the heart, and checks Favourites
+- `CatalogTests` checks search, filters, and that the map points are in Sri Lanka.
+- `FavouriteStoreTests` saves a heart and removes it.
+- `CraftTrailUITests` opens the mask, taps the heart, and checks Favourites.
 
-## Folder map
+## Where things are
 
-- `CraftTrail/` app source
-- `Design/` colours and the sticker modifier
-- `Illustrations/` the cartoon drawings
-- `Data/SampleCatalog.swift` the crafts and towns (edit this to change content)
-- `Data/CatalogSearch.swift` search and filters
-- `Persistence/` SwiftData hearts and appearance
-- `Views/` screens
-- `CraftTrailTests/` and `CraftTrailUITests/`
+- `CraftTrail/Views` — screens
+- `CraftTrail/Illustrations` — the cartoon drawings
+- `CraftTrail/Design` — colours and the sticker card style
+- `CraftTrail/Data/SampleCatalog.swift` — the craft and town text
+- `CraftTrail/Data/CatalogSearch.swift` — search and filters
+- `CraftTrail/Persistence` — saved hearts and the appearance setting
+- `CraftTrailTests` and `CraftTrailUITests`
 
-## How to explain it in the viva
+## If it does not build
 
-- The catalog is static sample data. Only hearts, the guest name, and the appearance choice are saved on the device.
-- SwiftData is the persistence. That is why the deployment target is iOS 17.
-- MapKit is the advanced framework. Pins are sample spots in real towns. The gold note on a page says the workshop name is not a real listing.
-- `StickerCardModifier` is the custom SwiftUI modifier (paper card, dark outline, hard shadow).
-- Drawings are original SwiftUI shapes so the app stays light and does not need photo files.
-- Dark Mode is the Profile appearance picker. Text size follows the iPhone text-size setting. Card entrance animation turns off when Reduce Motion is on.
+If Xcode complains about `mapStyle`, open `ExploreView.swift` and `DestinationDetailView.swift` and change that line to `.mapStyle(.standard)`.
 
-## If Xcode reports a build error
+If a real iPhone will not run, set the Team under Signing & Capabilities. The simulator is enough for the demo.
 
-- “MapStyle has no member standard(elevation:pointsOfInterest:)”: in `ExploreView.swift` and `DestinationDetailView.swift`, change `.mapStyle(.standard(elevation: .flat, pointsOfInterest: .excludingAll))` to `.mapStyle(.standard)`.
-- Signing error on a real phone: select a Team, as above. Use a simulator if there is no Apple ID handy.
-- Missing simulator: Xcode, Settings, Components, install an iOS 17 or newer simulator.
-
-## GitHub
-
-From the `CraftTrail` folder (the one that contains `CraftTrail.xcodeproj`):
-
-```bash
-git init
-git add .
-git commit -m "Add CraftTrail Sri Lanka picture-book app"
-git branch -M main
-git remote add origin https://github.com/YOUR_NAME/CraftTrail.git
-git push -u origin main
-```
-
-Do not commit the assignment PDF or the Labs folder unless you mean to. Push this folder only.
-
-## AI-assisted development
-
-Cursor was used to draft this first version from the SE4041 Part A brief and this direction: a simple Sri Lankan heritage app with a vector cartoon look, not a photo-heavy product. The student should be able to explain the screens, SwiftData, MapKit, and the sticker modifier, and should keep a short log of later prompts.
-
-## Known limits
-
-- Not compiled or tested on a Mac yet
-- iPhone only
-- No login and no server
-- Seven crafts and seven demo stops
-- Map tiles need a network connection the first time
+I used Cursor to help me set the project up and write parts of the code. The app idea, the crafts, and the cartoon look are mine, and I can explain the screens, how saving works, and how the map is used.
