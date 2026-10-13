@@ -45,6 +45,18 @@ enum CraftMotif: String, CaseIterable, Hashable {
         case .sesath: return "sun.max.fill"
         }
     }
+
+    var imageName: String {
+        switch self {
+        case .mask: return "craft-mask"
+        case .batik: return "craft-batik"
+        case .laksha: return "craft-laksha"
+        case .brass: return "craft-brass"
+        case .dumbara: return "craft-dumbara"
+        case .lace: return "craft-lace"
+        case .sesath: return "craft-sesath"
+        }
+    }
 }
 
 struct Craft: Identifiable, Hashable {

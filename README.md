@@ -4,7 +4,7 @@ CraftTrail is my SE4041 iOS app. It is a small guide to Sri Lankan crafts for so
 
 The crafts in the app are Ambalangoda masks, coastal batik, Kandyan laksha, brass oil lamps, Dumbara weaving, beeralu lace, and the perahera sesath.
 
-I did the pictures as cartoons instead of using photos. They are SwiftUI shapes with a dark outline, on cream cards, with green and terracotta as the main colours. I wanted it to feel like a sticker sheet, not a normal list app.
+I did the pictures as flat cartoons instead of using photos. Each craft is a sticker drawing with a dark outline, on cream cards, with green and terracotta as the main colours.
 
 I built this on Windows, so I have not run it in the simulator myself. It needs a Mac with Xcode.
 

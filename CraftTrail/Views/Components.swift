@@ -12,7 +12,7 @@ struct CraftCard: View {
                 RoundedRectangle(cornerRadius: 16, style: .continuous)
                     .fill(CraftColor.stage(craft.motif))
                 CraftIllustration(motif: craft.motif)
-                    .scaleEffect(style == .feature ? 0.78 : 0.55)
+                    .padding(8)
             }
             .frame(height: style == .feature ? 148 : 108)
             .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
@@ -46,7 +46,7 @@ struct DestinationRow: View {
         HStack(spacing: 12) {
             ZStack {
                 CraftIllustration(motif: place.motif)
-                    .scaleEffect(0.36)
+                    .padding(4)
             }
             .frame(width: 64, height: 64)
             .background(CraftColor.stage(place.motif), in: RoundedRectangle(cornerRadius: 14, style: .continuous))
