@@ -86,6 +86,7 @@ struct HomeView: View {
             .craftScreen()
             .navigationTitle("CraftTrail")
             .navigationBarTitleDisplayMode(.inline)
+            .toolbar(.hidden, for: .navigationBar)
             .craftRoutes()
         }
     }
@@ -98,7 +99,7 @@ struct HomeView: View {
             Text("Sri Lanka")
                 .font(.title2.weight(.bold))
                 .foregroundStyle(CraftColor.terracotta)
-            Text("A picture-book guide to handmade crafts.")
+            Text("A small guide to handmade crafts.")
                 .font(.body)
                 .foregroundStyle(CraftColor.ink)
                 .fixedSize(horizontal: false, vertical: true)

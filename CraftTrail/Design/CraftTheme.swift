@@ -1,8 +1,7 @@
 import SwiftUI
 import UIKit
 
-/// Picture-book palette. Ivory paper, forest green, terracotta, and gold.
-/// Outlines stay dark in both appearances so drawings look like stickers.
+/// Cream paper, forest green, terracotta, and gold.
 enum CraftColor {
     static let ivory = adaptive(light: RGB(0.965, 0.941, 0.894), dark: RGB(0.102, 0.141, 0.125))
     static let card = adaptive(light: RGB(1.0, 0.980, 0.953), dark: RGB(0.153, 0.200, 0.176))

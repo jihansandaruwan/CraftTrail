@@ -84,6 +84,25 @@ struct Destination: Identifiable, Hashable {
     let motif: CraftMotif
     /// Towns are real. Workshop names are made up for this demo.
     let isIllustrative: Bool
+
+    /// Pin position on the island map. Laksha and sesath are both in Kandy,
+    /// so those two are shifted a little or they sit on one dot.
+    /// The town page still uses `latitude` and `longitude`.
+    var exploreLatitude: Double {
+        switch id {
+        case "kandy-laksha": return latitude + 0.055
+        case "kandy-sesath": return latitude - 0.055
+        default: return latitude
+        }
+    }
+
+    var exploreLongitude: Double {
+        switch id {
+        case "kandy-laksha": return longitude - 0.03
+        case "kandy-sesath": return longitude + 0.03
+        default: return longitude
+        }
+    }
 }
 
 enum Route: Hashable {

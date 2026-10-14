@@ -5,6 +5,7 @@ struct CraftDetailView: View {
     @Environment(FavouriteStore.self) private var favourites
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @State private var wobble = CGSize.zero
+    @State private var notice: String?
 
     private var place: Destination? {
         SampleCatalog.destination(forCraftID: craft.id)
@@ -50,36 +51,41 @@ struct CraftDetailView: View {
                     NavigationLink(value: Route.destination(place.id)) {
                         ActionLabel(title: "See \(place.town)")
                     }
-                    .buttonStyle(.plain)
+                    .buttonStyle(StickerPressStyle())
                 }
             }
             .padding(CraftSpace.m)
         }
+        .safeAreaInset(edge: .bottom) {
+            if let notice, !AppFlags.isUITesting {
+                PopNotice(text: notice)
+                    .padding(.bottom, 8)
+                    .transition(.scale(scale: 0.86).combined(with: .opacity))
+            }
+        }
+        .animation(reduceMotion ? nil : .spring(response: 0.32, dampingFraction: 0.7), value: notice)
         .craftScreen()
         .navigationTitle(craft.name)
         .navigationBarTitleDisplayMode(.inline)
+        .toolbar(.visible, for: .navigationBar)
     }
 
     private var stage: some View {
         ZStack(alignment: .topTrailing) {
-            ZStack {
-                CraftColor.stage(craft.motif)
-                CraftIllustration(motif: craft.motif)
-                    .offset(wobble)
-                    .gesture(tilt)
-            }
-            .accessibilityLabel("Cartoon of \(craft.name)")
-            .accessibilityHint(reduceMotion ? "Illustrated craft" : "Drag to tilt the drawing")
+            CraftIllustration(motif: craft.motif)
+                .offset(wobble)
+                .gesture(tilt)
+            .accessibilityLabel("Illustration of \(craft.name)")
+            .accessibilityHint(reduceMotion ? "Illustrated craft" : "Drag to tilt the picture")
             .frame(maxWidth: .infinity)
             .frame(height: 280)
+            .background(CraftColor.ivory)
             .clipShape(RoundedRectangle(cornerRadius: CraftSpace.radius, style: .continuous))
-            .overlay(
-                RoundedRectangle(cornerRadius: CraftSpace.radius, style: .continuous)
-                    .stroke(CraftColor.outline, lineWidth: 3)
-            )
 
             FavouriteButton(isSaved: favourites.contains(craft.id)) {
+                let willSave = !favourites.contains(craft.id)
                 favourites.toggle(id: craft.id, kind: FavouriteKind.craft, title: craft.name)
+                flash(willSave ? "Saved" : "Removed")
             }
             .padding(12)
         }
@@ -99,5 +105,15 @@ struct CraftDetailView: View {
                     wobble = .zero
                 }
             }
+    }
+
+    private func flash(_ text: String) {
+        notice = text
+        Task { @MainActor in
+            try? await Task.sleep(nanoseconds: 1_100_000_000)
+            if notice == text {
+                notice = nil
+            }
+        }
     }
 }

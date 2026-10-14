@@ -1,19 +1,19 @@
 import SwiftUI
 
-/// The app's custom look: a paper sticker with a hard offset shadow.
+/// Soft card. Shadow sits on the background only, so light mode does not draw text twice.
 /// This is the custom ViewModifier the assignment asks for.
 struct StickerCardModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
-            .background(
-                CraftColor.card,
-                in: RoundedRectangle(cornerRadius: CraftSpace.radius, style: .continuous)
-            )
-            .overlay(
+            .background {
                 RoundedRectangle(cornerRadius: CraftSpace.radius, style: .continuous)
-                    .stroke(CraftColor.outline, lineWidth: 2.5)
-            )
-            .shadow(color: CraftColor.outline.opacity(0.45), radius: 0, x: 4, y: 4)
+                    .fill(CraftColor.card)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: CraftSpace.radius, style: .continuous)
+                            .stroke(CraftColor.outline.opacity(0.18), lineWidth: 1)
+                    )
+                    .shadow(color: CraftColor.outline.opacity(0.08), radius: 10, x: 0, y: 4)
+            }
     }
 }
 
@@ -42,8 +42,9 @@ struct PopInModifier: ViewModifier {
 struct StickerPressStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
-            .scaleEffect(configuration.isPressed ? 0.97 : 1)
-            .animation(.spring(response: 0.25, dampingFraction: 0.7), value: configuration.isPressed)
+            .scaleEffect(configuration.isPressed ? 0.92 : 1)
+            .opacity(configuration.isPressed ? 0.86 : 1)
+            .animation(.spring(response: 0.28, dampingFraction: 0.62), value: configuration.isPressed)
     }
 }
 

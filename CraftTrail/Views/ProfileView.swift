@@ -42,7 +42,7 @@ struct ProfileView: View {
                         Text("About CraftTrail")
                             .font(.headline.weight(.bold))
                             .foregroundStyle(CraftColor.ink)
-                        Text("A small picture-book guide to seven Sri Lankan crafts. Drawings are SwiftUI shapes, not photographs. Hearts are saved on this phone with SwiftData. The Explore map uses MapKit.")
+                        Text("A small guide to seven Sri Lankan crafts. The pictures are flat illustrations. The mask is the Ambalangoda fire mask. Hearts are saved on this phone with SwiftData. The Explore map uses MapKit.")
                             .font(.body)
                             .foregroundStyle(CraftColor.ink)
                             .fixedSize(horizontal: false, vertical: true)

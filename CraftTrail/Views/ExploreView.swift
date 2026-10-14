@@ -2,12 +2,6 @@ import MapKit
 import SwiftUI
 
 struct ExploreView: View {
-    @State private var position: MapCameraPosition = .region(
-        MKCoordinateRegion(
-            center: CLLocationCoordinate2D(latitude: 7.45, longitude: 80.65),
-            span: MKCoordinateSpan(latitudeDelta: 3.6, longitudeDelta: 2.1)
-        )
-    )
     @State private var selectedID: String?
     @State private var text = ""
     @State private var region: CraftRegion?
@@ -47,28 +41,54 @@ struct ExploreView: View {
             .navigationTitle("Explore")
             .navigationBarTitleDisplayMode(.inline)
             .craftRoutes()
+            .onChange(of: places.map(\.id)) { _, ids in
+                if let selectedID, !ids.contains(selectedID) {
+                    self.selectedID = nil
+                }
+            }
+        }
+    }
+
+    private var cameraRegion: MKCoordinateRegion {
+        switch region {
+        case .southCoast:
+            return MKCoordinateRegion(
+                center: CLLocationCoordinate2D(latitude: 6.12, longitude: 80.28),
+                span: MKCoordinateSpan(latitudeDelta: 1.4, longitudeDelta: 1.2)
+            )
+        case .hillCountry:
+            return MKCoordinateRegion(
+                center: CLLocationCoordinate2D(latitude: 7.30, longitude: 80.66),
+                span: MKCoordinateSpan(latitudeDelta: 0.9, longitudeDelta: 0.9)
+            )
+        case nil:
+            return MKCoordinateRegion(
+                center: CLLocationCoordinate2D(latitude: 7.45, longitude: 80.65),
+                span: MKCoordinateSpan(latitudeDelta: 3.6, longitudeDelta: 2.1)
+            )
         }
     }
 
     private var map: some View {
-        Map(position: $position) {
-            ForEach(places) { place in
-                Annotation(place.mapLabel, coordinate: place.coordinate, anchor: .bottom) {
-                    Button {
-                        selectedID = selectedID == place.id ? nil : place.id
-                    } label: {
-                        CartoonPin(motif: place.motif, selected: selectedID == place.id)
-                    }
-                    .buttonStyle(.plain)
-                    .accessibilityLabel("\(place.mapLabel) pin in \(place.town)")
-                }
-            }
+        CraftMap(
+            pins: places.map { place in
+                CraftMapPin(
+                    id: place.id,
+                    title: "\(place.mapLabel), \(place.town)",
+                    latitude: place.exploreLatitude,
+                    longitude: place.exploreLongitude,
+                    symbolName: place.motif.symbolName,
+                    selected: selectedID == place.id
+                )
+            },
+            region: cameraRegion
+        ) { id in
+            selectedID = selectedID == id ? nil : id
         }
-        .mapStyle(.standard(elevation: .flat, pointsOfInterest: .excludingAll))
         .clipShape(RoundedRectangle(cornerRadius: CraftSpace.radius, style: .continuous))
         .overlay(
             RoundedRectangle(cornerRadius: CraftSpace.radius, style: .continuous)
-                .stroke(CraftColor.outline, lineWidth: 2.5)
+                .stroke(CraftColor.outline.opacity(0.12), lineWidth: 1)
         )
         .accessibilityLabel("Map of Sri Lanka with craft stops")
     }
@@ -95,9 +115,9 @@ struct ExploreView: View {
                     .padding(10)
                     .stickerCard()
                 }
-                .buttonStyle(.plain)
+                .buttonStyle(StickerPressStyle())
             }
-            Text("Pins are sample spots. The map picture loads online. This list still works offline.")
+            Text("Pins are sample spots. South Coast and Hill Country zoom in. The two Kandy pins are shifted a little so you can tap them. Town pages use the real place. The list works offline.")
                 .font(.caption)
                 .foregroundStyle(CraftColor.ink)
                 .fixedSize(horizontal: false, vertical: true)
@@ -126,8 +146,3 @@ struct ExploreView: View {
     }
 }
 
-private extension Destination {
-    var coordinate: CLLocationCoordinate2D {
-        CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
-    }
-}

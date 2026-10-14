@@ -8,17 +8,12 @@ struct CraftCard: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: CraftSpace.s) {
-            ZStack {
-                RoundedRectangle(cornerRadius: 16, style: .continuous)
-                    .fill(CraftColor.stage(craft.motif))
-                CraftIllustration(motif: craft.motif)
-                    .padding(8)
-            }
+            CraftIllustration(motif: craft.motif)
             .frame(height: style == .feature ? 148 : 108)
             .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
             .overlay(
                 RoundedRectangle(cornerRadius: 16, style: .continuous)
-                    .stroke(CraftColor.outline, lineWidth: 2)
+                    .stroke(CraftColor.outline.opacity(0.12), lineWidth: 1)
             )
 
             Text(craft.name)
@@ -44,15 +39,12 @@ struct DestinationRow: View {
 
     var body: some View {
         HStack(spacing: 12) {
-            ZStack {
-                CraftIllustration(motif: place.motif)
-                    .padding(4)
-            }
+            CraftIllustration(motif: place.motif)
             .frame(width: 64, height: 64)
-            .background(CraftColor.stage(place.motif), in: RoundedRectangle(cornerRadius: 14, style: .continuous))
+            .background(CraftColor.ivory, in: RoundedRectangle(cornerRadius: 14, style: .continuous))
             .overlay(
                 RoundedRectangle(cornerRadius: 14, style: .continuous)
-                    .stroke(CraftColor.outline, lineWidth: 2)
+                    .stroke(CraftColor.outline.opacity(0.12), lineWidth: 1)
             )
 
             VStack(alignment: .leading, spacing: 4) {
@@ -99,7 +91,7 @@ struct SearchField: View {
                     Image(systemName: "xmark.circle.fill")
                         .foregroundStyle(CraftColor.ink.opacity(0.55))
                 }
-                .buttonStyle(.plain)
+                .buttonStyle(StickerPressStyle())
                 .accessibilityLabel("Clear search")
             }
         }
@@ -141,7 +133,7 @@ struct CategoryChips: View {
                 )
                 .overlay(Capsule().stroke(CraftColor.outline, lineWidth: 2))
         }
-        .buttonStyle(.plain)
+        .buttonStyle(StickerPressStyle())
         .accessibilityAddTraits(isSelected ? .isSelected : [])
     }
 }
@@ -179,7 +171,7 @@ struct RegionChips: View {
                 )
                 .overlay(Capsule().stroke(CraftColor.outline, lineWidth: 2))
         }
-        .buttonStyle(.plain)
+        .buttonStyle(StickerPressStyle())
         .accessibilityAddTraits(isSelected ? .isSelected : [])
     }
 }
@@ -195,15 +187,30 @@ struct FavouriteButton: View {
                 .foregroundStyle(isSaved ? CraftColor.terracotta : CraftColor.ink)
                 .symbolEffect(.bounce, value: isSaved)
                 .frame(width: 48, height: 48)
-                .background(CraftColor.card, in: Circle())
-                .overlay(Circle().stroke(CraftColor.outline, lineWidth: 2.5))
-                .shadow(color: CraftColor.outline.opacity(0.35), radius: 0, x: 2, y: 2)
+                .background {
+                    Circle()
+                        .fill(CraftColor.card)
+                        .shadow(color: CraftColor.outline.opacity(0.12), radius: 6, x: 0, y: 2)
+                }
         }
-        .buttonStyle(.plain)
+        .buttonStyle(StickerPressStyle())
         .accessibilityIdentifier("favourite.toggle")
         .accessibilityLabel(isSaved ? "Remove from favourites" : "Save to favourites")
         .accessibilityValue(isSaved ? "Saved" : "Not saved")
         .sensoryFeedback(.selection, trigger: isSaved)
+    }
+}
+
+struct PopNotice: View {
+    let text: String
+
+    var body: some View {
+        Text(text)
+            .font(.subheadline.weight(.bold))
+            .foregroundStyle(CraftColor.actionText)
+            .padding(.horizontal, 16)
+            .padding(.vertical, 10)
+            .background(CraftColor.forest, in: Capsule())
     }
 }
 
@@ -233,7 +240,7 @@ struct DemoBanner: View {
             )
             .overlay(
                 RoundedRectangle(cornerRadius: 16, style: .continuous)
-                    .stroke(CraftColor.outline, lineWidth: 2)
+                    .stroke(CraftColor.outline.opacity(0.12), lineWidth: 1)
             )
     }
 }
@@ -247,15 +254,10 @@ struct ActionLabel: View {
             .foregroundStyle(CraftColor.actionText)
             .frame(maxWidth: .infinity)
             .padding(.vertical, 14)
-            .background(
-                CraftColor.actionFill,
-                in: RoundedRectangle(cornerRadius: 16, style: .continuous)
-            )
-            .overlay(
+            .background {
                 RoundedRectangle(cornerRadius: 16, style: .continuous)
-                    .stroke(CraftColor.outline, lineWidth: 2.5)
-            )
-            .shadow(color: CraftColor.outline.opacity(0.35), radius: 0, x: 3, y: 3)
+                    .fill(CraftColor.actionFill)
+            }
     }
 }
 

@@ -66,6 +66,18 @@ final class CatalogTests: XCTestCase {
             XCTAssertTrue((79.0...82.5).contains(place.longitude))
         }
     }
+
+    func testKandyPinsStayApartOnTheIslandMap() {
+        let laksha = SampleCatalog.destination("kandy-laksha")
+        let sesath = SampleCatalog.destination("kandy-sesath")
+        XCTAssertNotNil(laksha)
+        XCTAssertNotNil(sesath)
+        let gap = abs((laksha?.exploreLatitude ?? 0) - (sesath?.exploreLatitude ?? 0))
+        XCTAssertGreaterThan(gap, 0.08)
+        XCTAssertEqual(laksha?.latitude ?? 0, 7.293, accuracy: 0.001)
+        XCTAssertTrue((6.8...8.0).contains(laksha?.exploreLatitude ?? 0))
+        XCTAssertTrue((6.8...8.0).contains(sesath?.exploreLatitude ?? 0))
+    }
 }
 
 @MainActor

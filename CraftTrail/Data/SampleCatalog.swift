@@ -9,8 +9,8 @@ enum SampleCatalog {
             name: "Ambalangoda Masks",
             category: .masks,
             region: .southCoast,
-            summary: "Painted wooden faces with big eyes and a tall headdress.",
-            story: "Ambalangoda, on the south coast, is known for carved wooden masks. Makers shape the wood, then paint a strong face: round eyes, a grin, and a bright crown of points. Masks like these are used in kolam theatre and in older folk traditions. This picture is a simplified cartoon of that look.",
+            summary: "A painted fire mask with a tall flame crest and wide side flames.",
+            story: "Ambalangoda, on the south coast, is known for carved wooden masks. The fire mask has a tall crest of flames, a flame fan on each side, round eyes, fangs, and a tongue. Masks like these are used in kolam theatre and in older folk traditions. The picture follows that mask.",
             studioNote: "Demo shed: Rainbow Grin Mask Shed in Ambalangoda.",
             motif: .mask
         ),
@@ -40,7 +40,7 @@ enum SampleCatalog {
             category: .brass,
             region: .hillCountry,
             summary: "A small brass oil lamp with a single flame.",
-            story: "The pahana is a traditional oil lamp used in homes and at temples. Brass workers around Kandy, including the Pilimatalawa area, hammer and cast metal into lamps, trays, and vessels. This cartoon lamp is a friendly symbol of that metal craft, not a measured drawing of a ritual object.",
+            story: "The pahana is a traditional oil lamp used in homes and at temples. Brass workers around Kandy, including the Pilimatalawa area, hammer and cast metal into lamps, trays, and vessels. The picture is a simple lamp, not a measured drawing of a ritual object.",
             studioNote: "Demo bench: Little Lamp Brass Bench in Pilimatalawa.",
             motif: .brass
         ),
@@ -60,7 +60,7 @@ enum SampleCatalog {
             category: .lace,
             region: .southCoast,
             summary: "Bobbin lace with an open, flower-like pattern.",
-            story: "Beeralu is bobbin lace made in the south, especially around Galle and Weligama. The maker works many small bobbins on a pillow, crossing threads into an open pattern. Pieces are often white or cream. The circle of loops in the app is a cartoon of that lace, not a real pattern chart.",
+            story: "Beeralu is bobbin lace made in the south, especially around Galle and Weligama. The maker works many small bobbins on a pillow, crossing threads into an open pattern. Pieces are often white or cream. The picture shows lace on a pillow, not a real pattern chart.",
             studioNote: "Demo veranda: Pillow Lace Veranda in Galle.",
             motif: .lace
         ),
@@ -70,7 +70,7 @@ enum SampleCatalog {
             category: .sesath,
             region: .hillCountry,
             summary: "A round ceremonial sunshade on a tall handle.",
-            story: "A sesath is a ceremonial standard carried in processions, including the Kandy Esala Perahera. Makers build a round disc from palm leaf, mica, or coloured panels, then set it on a handle. The cartoon fan here uses gold and red spokes so the shape is easy to recognise.",
+            story: "A sesath is a ceremonial standard carried in processions, including the Kandy Esala Perahera. Makers build a round disc from palm leaf, mica, or coloured panels, then set it on a handle. The picture uses a round gold and red disc so the shape is easy to recognise.",
             studioNote: "Demo bench: Sun Disc Sesath Bench in Kandy.",
             motif: .sesath
         )
